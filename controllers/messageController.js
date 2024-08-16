@@ -7,7 +7,7 @@ const createMessageController = async (req, res) => {
 
   const wss = getWebSocketServer();
   wss.clients.forEach((client) => {
-    client.send(JSON.stringify({ id: message.id, content: message.content }));
+    client.send(JSON.stringify({ id: message?.id, content: message?.content }));
   });
 
   res.status(201).json(message);
