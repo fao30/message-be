@@ -1,12 +1,19 @@
 const WebSocket = require("ws");
-const { handleConnection } = require("./eventHandlers");
 
 let wss;
 const setupWebSocketServer = (server) => {
   wss = new WebSocket.Server({ server });
 
   wss.on("connection", (ws) => {
-    handleConnection(ws, wss);
+    console.log("Client connected");
+
+    ws.on("message", (message) => {
+      console.log("Received:", message);
+    });
+
+    ws.on("close", () => {
+      console.log("Client disconnected");
+    });
   });
 
   return wss;
